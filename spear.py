@@ -42,8 +42,8 @@ def main(num, rank):
   save_posts(posts)
   if rank:
     posts = load_posts()
-    print posts[int(rank)-1]['permalink']
-    webbrowser.open(BASE_URL + str(posts[rank-1]['permalink']), new=2)
+    url = BASE_URL + posts[int(rank)-1]['permalink']
+    webbrowser.open(url, new=2)
 
 if __name__ == '__main__':
   main()
