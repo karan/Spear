@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from operator import itemgetter
+
 import click
 import requests
 
@@ -15,7 +17,7 @@ def main(num):
   posts = get_today()
   sorted_posts = sorted(posts, key=lambda post: post['rank'])
 
-  for post in posts:
+  for post in sorted_posts:
     click.secho('%d - ' % post['rank'], nl=False)
     click.secho('%s - ' % post['title'], bold=True, fg="red", nl=False)
     click.secho('%s' % post['tagline'], fg="yellow")
