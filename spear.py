@@ -16,7 +16,9 @@ def main(num):
   sorted_posts = sorted(posts, key=lambda post: post['rank'])
 
   for post in posts:
-    click.echo('%d - %s - %s - %s comments' % (post['rank'], post['title'], post['tagline'], post['comment_count']))
+    click.secho('%d - ' % post['rank'], nl=False)
+    click.secho('%s - ' % post['title'], bold=True, fg="red", nl=False)
+    click.secho('%s' % post['tagline'], fg="yellow")
 
 
 if __name__ == '__main__':
