@@ -12,6 +12,19 @@ Built with [Hook](https://github.com/karan/Hook).
 Install
 =====
 
+### Method 1 - Pip
+
+```bash
+$ pip install spear-cli
+````
+
+### Method 2 - Build from source
+
+```bash
+$ git clone git@github.com:karan/Spear.git
+$ cd Spear
+$ python setup.py install
+```
 
 Usage
 ====
