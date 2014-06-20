@@ -12,6 +12,10 @@ setup(
   author_email='karan@goel.im',
   url='http://github.com/karan/Spear',
   scripts=['spear.py'],
+  install_requires=[
+    "click==2.1",
+    "requests==2.3.0",
+  ],
   entry_points = {
     'console_scripts': [
         'hunt = spear:main'
