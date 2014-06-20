@@ -9,6 +9,8 @@ Product Hunt for Hackers - a CLI to Product Hunt.
 
 Built with [Hook](https://github.com/karan/Hook).
 
+![](http://i.imgur.com/9DSWxM3.png?1)
+
 Install
 =====
 
