@@ -30,11 +30,26 @@ def get_todays_posts():
   return sorted(requests.get(TODAY_URL).json()['hunts'], 
                 key=lambda post: post['rank'])
 
-
 def browse_rank(posts, rank):
   """Opens the permalink for post at rank rank in default browser."""
+  
+  if rank > len(posts):
+    click.secho(('\n\tCannot get that rank. Currently %d products have been hunted '
+                  'with Spear.\n' % len(posts)), fg="red")
+    return
+
   url = BASE_URL + posts[int(rank)-1]['permalink']
   webbrowser.open(url, new=2)
+
+def print_posts(posts):
+  """Neatly prints all passed posts to the console."""
+
+  click.echo()
+  for post in posts:
+    click.secho('%d. ' % post['rank'], nl=False)
+    click.secho('%s\t' % post['title'], bold=True, fg="red", nl=False)
+    click.secho('%s' % post['tagline'], fg="yellow")
+    click.echo()
 
 
 @click.command()
@@ -43,12 +58,12 @@ def browse_rank(posts, rank):
 @click.argument('rank', nargs=1, required=False)
 def main(num, rank):
   """A CLI to Product Hunt that shows (top num) products from today
-  and/or open the product at rank rank in web browser.
-
-  Once posts are grabbed from the API, they are saved in a file for consistency
-  within a session."""
+  and/or open the product at rank rank in web browser."""
 
   file_existed = os.path.isfile(FILE_NAME)
+
+  if rank:
+    rank = int(rank)
   
   # if a rank is passed, we assume the user wants to open the product at the
   # rank. But if the local file doesn't exist, we query the API, and retry.
@@ -56,20 +71,16 @@ def main(num, rank):
     browse_rank(load_posts(), rank)
   else:
     posts = get_todays_posts()
+    end_index = num if num <= len(posts) else len(posts)
+    posts = posts[:end_index]
 
     if not rank:
-      click.echo()
-      for post in posts[:num if num <= len(posts) else len(posts)]:
-        click.secho('%d. ' % post['rank'], nl=False)
-        click.secho('%s\t' % post['title'], bold=True, fg="red", nl=False)
-        click.secho('%s' % post['tagline'], fg="yellow")
-        click.echo()
+      print_posts(posts)
 
     save_posts(posts)
-
+    
     if rank:
-      # this will be executed only if rank is passed, but no file was
-      # initially found
+      # rank was passed, and url could not be opened in first try
       browse_rank(load_posts(), rank)
 
 if __name__ == '__main__':
