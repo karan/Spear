@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
   name='spear-cli',
-  version='0.0.2',
+  version='0.0.3',
   description='Product Hunt for Hackers.',
   author='Karan Goel',
   license='MIT',
@@ -14,7 +14,7 @@ setup(
   scripts=['spear.py'],
   install_requires=[
     "click==2.1",
-    "requests==2.3.0",
+    "requests==2.4.0",
   ],
   entry_points = {
     'console_scripts': [
