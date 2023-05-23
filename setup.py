@@ -14,7 +14,7 @@ setup(
   scripts=['spear.py'],
   install_requires=[
     "click==2.1",
-    "requests==2.4.0",
+    "requests==2.31.0",
   ],
   entry_points = {
     'console_scripts': [
